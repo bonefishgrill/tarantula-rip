@@ -92,12 +92,9 @@ img { display: block; max-width: 100%; }
 .bar__nav a:hover { border-bottom-color: var(--rule); }
 .bar__nav a[aria-current="page"] { border-bottom-color: var(--ink); }
 
-.bar__when { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
-
 @media (max-width: 34rem) {
   .bar { grid-template-columns: auto 1fr; }
   .bar__nav { justify-content: flex-end; }
-  .bar__when { display: none; }
 }
 
 /* ---------- opening plate ---------- */
@@ -117,6 +114,25 @@ img { display: block; max-width: 100%; }
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
+}
+
+/* a portrait hero can't survive a wide cover crop - show it whole, centred */
+.hero--portrait {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.hero--portrait .hero__frame {
+  width: auto;
+  height: min(84vh, 115vw);
+  background: var(--paper);
+}
+
+.hero--portrait .hero__frame img {
+  width: auto;
+  height: 100%;
+  object-fit: unset;
 }
 
 .hero__caption {
@@ -251,7 +267,6 @@ img { display: block; max-width: 100%; }
     <a href="./">Photographs</a>
     <a href="about.html" aria-current="page">About</a>
   </nav>
-  <p class="bar__when">2024&ndash;2025</p>
 </header>
 
 <main class="about">
@@ -265,7 +280,6 @@ img { display: block; max-width: 100%; }
     <p>Tarantula was an experimental store created by Ben Schechter in 2024. The idea was to sell things in the store that I had never seen anywhere else and that I couldn&rsquo;t stop thinking about. It lasted about a year.</p>
 
     <dl class="details">
-      <div><dt>Years</dt><dd>2024&ndash;2025</dd></div>
       <div><dt>Contact</dt><dd><a href="mailto:ben@tarantula.studio">ben@tarantula.studio</a></dd></div>
     </dl>
   </div>
