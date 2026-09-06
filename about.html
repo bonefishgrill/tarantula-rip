@@ -1,4 +1,4 @@
-<title>Tarantula Store</title>
+<title>About Tarantula Store</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap">
@@ -186,96 +186,93 @@ img { display: block; max-width: 100%; }
 
 .foot p { margin: 0; }
 .foot p:last-child { font-variant-numeric: tabular-nums; }
+
+/* ---------- about page ---------- */
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  padding: clamp(2rem, 5vw, 4rem) var(--pad) 0;
+}
+
+@media (max-width: 60rem) {
+  .about { grid-template-columns: minmax(0, 1fr); }
+}
+
+.about__mark img { width: clamp(6rem, 12vw, 11rem); height: auto; }
+
+.about__title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1;
+  margin: 0 0 1.4rem;
+}
+
+.about__body { max-width: 60ch; }
+
+.about__body p {
+  margin: 0 0 1em;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.about__body p:last-child { margin-bottom: 0; }
+
+.details {
+  max-width: 60ch;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.details div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.details dt { margin: 0; color: var(--ink-soft); }
+.details dd { margin: 0; }
+.details a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.details a:hover { text-decoration-color: var(--ink); }
+
+@media (max-width: 32rem) {
+  .details div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+}
 </style>
 
 <header class="bar">
   <p class="bar__mark"><a href="./">TARANTULA</a></p>
   <nav class="bar__nav" aria-label="Site">
-    <a href="./" aria-current="page">Photographs</a>
-    <a href="about.html">About</a>
+    <a href="./">Photographs</a>
+    <a href="about.html" aria-current="page">About</a>
   </nav>
   <p class="bar__when">2024&ndash;2025</p>
 </header>
 
-<section class="hero">
-  <div class="hero__frame">
-    <img src="images/01.jpg" alt="Tarantula Store, 1461 Echo Park Avenue" width="2200" height="1650" fetchpriority="high">
+<main class="about">
+  <div class="about__mark">
+    <img src="images/19.png" alt="The Tarantula mark: a black, many-limbed creature, brush-painted." width="734" height="900">
   </div>
-  <p class="hero__caption"><span>1461 Echo Park Avenue</span><span>01/18</span></p>
-</section>
 
-<section class="plates">
-  <figure class="plate">
-    <img src="images/02.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>02/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/03.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>03/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/04.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>04/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/05.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>05/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/06.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>06/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/07.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>07/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/08.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>08/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/09.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>09/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/10.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>10/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/11.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>11/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/12.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>12/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/13.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>13/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/14.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>14/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/15.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>15/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/16.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>16/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/17.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>17/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/18.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>18/18</figcaption>
-  </figure>
-</section>
+  <div class="about__body">
+    <h1 class="about__title">About</h1>
+
+    <p>Tarantula was an experimental store created by Ben Schechter in 2024. The idea was to sell things in the store that I had never seen anywhere else and that I couldn&rsquo;t stop thinking about. It lasted about a year.</p>
+
+    <dl class="details">
+      <div><dt>Address</dt><dd>1461 Echo Park Avenue, Los Angeles, CA 90026</dd></div>
+      <div><dt>Years</dt><dd>2024&ndash;2025</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:ben@tarantula.studio">ben@tarantula.studio</a></dd></div>
+    </dl>
+  </div>
+</main>
 
 <footer class="foot">
   <p>Tarantula Store &middot; 1461 Echo Park Avenue</p>
-  <p>18 photographs</p>
+  <p>Echo Park, Los Angeles</p>
 </footer>
