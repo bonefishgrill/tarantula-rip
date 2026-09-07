@@ -23,8 +23,6 @@
   --field:    #F4F3F1;
 
   --pad: clamp(1.1rem, 2.6vw, 2.25rem);
-  --gap-x: clamp(1rem, 2.2vw, 2rem);
-  --gap-y: clamp(2.25rem, 4.5vw, 4rem);
 
   --display: "Rugby", "Haettenschweiler", "Arial Narrow", sans-serif;
   --body: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -51,7 +49,7 @@ img { display: block; max-width: 100%; }
   outline-offset: 3px;
 }
 
-/* ---------- top bar ---------- */
+/* ---------- top bar (shared with About) ---------- */
 
 .bar {
   position: sticky;
@@ -92,205 +90,299 @@ img { display: block; max-width: 100%; }
 .bar__nav a:hover { border-bottom-color: var(--rule); }
 .bar__nav a[aria-current="page"] { border-bottom-color: var(--ink); }
 
-@media (max-width: 34rem) {
-  .bar { grid-template-columns: auto 1fr; }
-  .bar__nav { justify-content: flex-end; }
-}
-
-/* ---------- opening plate ---------- */
-
-.hero { padding: 0 var(--pad); }
-
-.hero__frame {
-  width: 100%;
-  height: min(60vh, 46vw);
-  min-height: 15rem;
-  background: var(--field);
-  overflow: hidden;
-}
-
-.hero__frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
-}
-
-/* a portrait hero can't survive a wide cover crop - show it whole, centred */
-.hero--portrait {
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-}
-
-.hero--portrait .hero__frame {
-  width: auto;
-  height: min(84vh, 115vw);
-  background: var(--paper);
-}
-
-.hero--portrait .hero__frame img {
-  width: auto;
-  height: 100%;
-  object-fit: unset;
-}
-
-.hero__caption {
+.bar__end {
   display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin: 0.55rem 0 0;
-  color: var(--ink-soft);
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
 }
 
-.hero__caption span:last-child { font-variant-numeric: tabular-nums; }
-
-/* ---------- the grid ---------- */
-
-.plates {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: start;
-  gap: var(--gap-y) var(--gap-x);
-  padding: 0 var(--pad);
-  margin-top: clamp(2.5rem, 6vw, 5rem);
-}
-
-@media (max-width: 70rem) { .plates { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 48rem) { .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 26rem) { .plates { grid-template-columns: minmax(0, 1fr); } }
-
-.plate { margin: 0; }
-
-.plate img {
-  width: 100%;
-  height: auto;
-  background: var(--field);
-}
-
-.plate figcaption {
-  margin-top: 0.55rem;
+.counter {
   color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
 }
 
-/* placeholder slots, shown until photos land in photos/ */
+.navbtn {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  cursor: pointer;
+}
 
-.slot {
+.navbtn:hover:not(:disabled) { border-color: var(--ink); }
+.navbtn:disabled { color: var(--rule); cursor: default; }
+
+@media (max-width: 34rem) {
+  .bar { gap: 0.6rem; }
+  .bar__nav { gap: 1rem; }
+  .navbtn { display: none; }
+}
+
+/* ---------- the reel: one photograph per screen ---------- */
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.reel {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reel::-webkit-scrollbar { display: none; }
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0 var(--pad) clamp(1.1rem, 2.6vw, 2.25rem);
+}
+
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slide__cap {
+  flex: 0 0 auto;
+  color: var(--ink-soft);
+}
+
+/* placeholder slides, shown until photos land in photos/ */
+
+.slide .slot {
+  width: min(100%, 40rem);
+  height: 70%;
   background: var(--field);
   display: grid;
   place-items: center;
   color: var(--ink-soft);
-  text-align: center;
-  padding: 1rem;
 }
 
-.hero__frame .slot { width: 100%; height: 100%; }
-.plate--slot .slot { aspect-ratio: 3 / 4; }
-
-/* ---------- footer ---------- */
-
-.foot {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  margin-top: clamp(3rem, 7vw, 5.5rem);
-  padding: 1.15rem var(--pad) 2.5rem;
-  color: var(--ink-soft);
+@media (prefers-reduced-motion: reduce) {
+  .reel { scroll-behavior: auto; }
 }
-
-.foot p { margin: 0; }
-.foot p:last-child { font-variant-numeric: tabular-nums; }
 </style>
 
-<header class="bar">
-  <p class="bar__mark"><a href="./">TARANTULA</a></p>
-  <nav class="bar__nav" aria-label="Site">
-    <a href="./" aria-current="page">Photographs</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
+<div class="cover">
+  <header class="bar">
+    <p class="bar__mark"><a href="./">TARANTULA</a></p>
+    <nav class="bar__nav" aria-label="Site">
+      <a href="./" aria-current="page">Photographs</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="bar__end">
+      <span class="counter" id="counter" aria-live="polite">01/18</span>
+      <button class="navbtn" id="prev" type="button" aria-label="Previous photograph">&larr;</button>
+      <button class="navbtn" id="next" type="button" aria-label="Next photograph">&rarr;</button>
+    </div>
+  </header>
 
-<section class="hero hero--portrait">
-  <div class="hero__frame">
-    <img src="images/01-441e6453.jpg" alt="Tarantula Store" width="1650" height="2200" fetchpriority="high">
+  <div class="reel" id="reel" role="region" aria-roledescription="carousel" aria-label="Photographs of Tarantula Store" tabindex="0">
+    <figure class="slide">
+      <img src="images/01-441e6453.jpg" alt="Tarantula Store, photograph 1 of 18" width="1650" height="2200" fetchpriority="high">
+    </figure>
+    <figure class="slide">
+      <img src="images/02-d09243a7.jpg" alt="Tarantula Store, photograph 2 of 18" width="1275" height="1700">
+    </figure>
+    <figure class="slide">
+      <img src="images/03-a98a05bd.jpg" alt="Tarantula Store, photograph 3 of 18" width="1700" height="1275">
+    </figure>
+    <figure class="slide">
+      <img src="images/04-8be26cb3.jpg" alt="Tarantula Store, photograph 4 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/05-7d296e3b.jpg" alt="Tarantula Store, photograph 5 of 18" width="1700" height="1275" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/06-ec0a9cc1.jpg" alt="Tarantula Store, photograph 6 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/07-f20e8928.jpg" alt="Tarantula Store, photograph 7 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/08-ed336d64.jpg" alt="Tarantula Store, photograph 8 of 18" width="1700" height="1275" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/09-6a0d183b.jpg" alt="Tarantula Store, photograph 9 of 18" width="1700" height="1275" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/10-0e5b0514.jpg" alt="Tarantula Store, photograph 10 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/11-84244004.jpg" alt="Tarantula Store, photograph 11 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/12-27701b58.jpg" alt="Tarantula Store, photograph 12 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/13-ca00abf4.jpg" alt="Tarantula Store, photograph 13 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/14-307b6fde.jpg" alt="Tarantula Store, photograph 14 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/15-60fc7d9d.jpg" alt="Tarantula Store, photograph 15 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/16-a05e79c3.jpg" alt="Tarantula Store, photograph 16 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/17-161db689.jpg" alt="Tarantula Store, photograph 17 of 18" width="1275" height="1700" loading="lazy">
+    </figure>
+    <figure class="slide">
+      <img src="images/18-7bd47cf1.jpg" alt="Tarantula Store, photograph 18 of 18" width="1700" height="1275" loading="lazy">
+    </figure>
   </div>
-  <p class="hero__caption"><span>01/18</span></p>
-</section>
+</div>
 
-<section class="plates">
-  <figure class="plate">
-    <img src="images/02-d09243a7.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>02/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/03-a98a05bd.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>03/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/04-8be26cb3.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>04/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/05-7d296e3b.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>05/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/06-ec0a9cc1.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>06/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/07-f20e8928.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>07/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/08-ed336d64.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>08/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/09-6a0d183b.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>09/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/10-0e5b0514.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>10/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/11-84244004.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>11/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/12-27701b58.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>12/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/13-ca00abf4.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>13/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/14-307b6fde.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>14/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/15-60fc7d9d.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>15/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/16-a05e79c3.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>16/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/17-161db689.jpg" alt="Tarantula Store" width="1275" height="1700" loading="lazy">
-    <figcaption>17/18</figcaption>
-  </figure>
-  <figure class="plate">
-    <img src="images/18-7bd47cf1.jpg" alt="Tarantula Store" width="1700" height="1275" loading="lazy">
-    <figcaption>18/18</figcaption>
-  </figure>
-</section>
+<script>
+(function () {
+  var reel = document.getElementById("reel");
+  var prev = document.getElementById("prev");
+  var next = document.getElementById("next");
+  var counter = document.getElementById("counter");
+  if (!reel) return;
 
-<footer class="foot">
-  <p>Tarantula Store</p>
-  <p>18 photographs</p>
-</footer>
+  var slides = reel.querySelectorAll(".slide");
+  var total = slides.length;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var idx = 0;
+
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+  function width() { return reel.clientWidth || 1; }
+
+  function current() {
+    return Math.max(0, Math.min(total - 1, Math.round(reel.scrollLeft / width())));
+  }
+
+  function warm(i) {
+    // make sure the neighbours are decoded before they slide in
+    for (var k = i - 1; k <= i + 2; k++) {
+      if (k < 0 || k >= total) continue;
+      var img = slides[k].querySelector("img");
+      if (img && img.loading === "lazy") img.loading = "eager";
+    }
+  }
+
+  function render(i) {
+    idx = i;
+    if (counter) counter.textContent = pad(i + 1) + "/" + pad(total);
+    if (prev) prev.disabled = i <= 0;
+    if (next) next.disabled = i >= total - 1;
+    warm(i);
+  }
+
+  // Only reconcile with the real position once scrolling has settled - never
+  // mid-animation, or a stray scroll event from the previous move would
+  // clobber the target and cancel the new one. A timed fallback covers hosts
+  // where scroll events don't fire at all.
+  var target = 0, settleTimer = null, fallbackTimer = null;
+
+  function settle() {
+    clearTimeout(settleTimer); clearTimeout(fallbackTimer);
+    idx = current();
+    target = idx;
+    render(idx);
+  }
+
+  function goTo(i, instant) {
+    i = Math.max(0, Math.min(total - 1, i));
+    target = i;
+    render(i);                                   // feedback now, not after the animation
+    reel.scrollTo({ left: i * width(), behavior: (instant || reduce) ? "auto" : "smooth" });
+    clearTimeout(fallbackTimer);
+    fallbackTimer = setTimeout(function () {
+      // a smooth scroll can be cancelled by a snap settling under it - if we
+      // never arrived, jump there rather than quietly reverting the counter
+      if (current() !== target) reel.scrollTo({ left: target * width(), behavior: "auto" });
+      settle();
+    }, 900);
+  }
+
+  // step from where we're headed, so quick repeated presses don't get swallowed
+  function go(dir) { goTo(target + dir); }
+
+  if (prev) prev.addEventListener("click", function () { go(-1); });
+  if (next) next.addEventListener("click", function () { go(1); });
+
+  reel.addEventListener("scroll", function () {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(settle, 140);
+  }, { passive: true });
+
+  // keep the same photograph in view when the window changes size
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { goTo(target, true); }, 80);
+  });
+
+  // a mouse wheel has no sideways axis: a firm vertical tick moves one photo.
+  // Trackpad sideways swipes are left to the browser.
+  var acc = 0, wheelLock = false;
+  reel.addEventListener("wheel", function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    if (wheelLock) return;
+    acc += e.deltaY;
+    if (Math.abs(acc) >= 40) {
+      go(acc > 0 ? 1 : -1);
+      acc = 0;
+      wheelLock = true;
+      setTimeout(function () { wheelLock = false; }, 500);
+    }
+  }, { passive: false });
+
+  // click the right half of a photograph for the next, the left half for the previous
+  reel.addEventListener("click", function (e) {
+    if (!e.target.closest(".slide")) return;
+    if (e.target.closest("a, button")) return;
+    go(e.clientX > window.innerWidth / 2 ? 1 : -1);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === "ArrowRight") { go(1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft") { go(-1); e.preventDefault(); }
+    else if (e.key === "Home") { goTo(0); e.preventDefault(); }
+    else if (e.key === "End") { goTo(total - 1); e.preventDefault(); }
+  });
+
+  settle();
+})();
+</script>
