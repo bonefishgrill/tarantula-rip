@@ -121,8 +121,12 @@ img { display: block; max-width: 100%; }
 .navbtn:disabled { color: var(--rule); cursor: default; }
 
 @media (max-width: 34rem) {
-  .bar { gap: 0.6rem; }
-  .bar__nav { gap: 1rem; }
+  /* Three nav links no longer fit beside the wordmark on a phone, so the
+     bar becomes two rows: wordmark (+ counter) above, nav below. */
+  .bar { grid-template-columns: 1fr auto; gap: 0.5rem 0.6rem; padding-bottom: 0.9rem; }
+  .bar__nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: 1.1rem; }
+  .bar__nav a { white-space: nowrap; }
+  .bar__end { grid-column: 2; grid-row: 1; }
   .navbtn { display: none; }
 }
 
@@ -203,6 +207,7 @@ img { display: block; max-width: 100%; }
     <nav class="bar__nav" aria-label="Site">
       <a href="./" aria-current="page">Photographs</a>
       <a href="about.html">About</a>
+      <a href="what-we-sold.html">What We Sold</a>
     </nav>
     <div class="bar__end">
       <span class="counter" id="counter" aria-live="polite">01/17</span>
